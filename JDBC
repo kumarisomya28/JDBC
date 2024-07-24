@@ -1,4 +1,4 @@
-1). This code is for establishing connection with MySQL database and retrieving data from db Java Database connectivity.
+Q1). This code is for establishing connection with MySQL database and retrieving data from db Java Database connectivity.
 import java.sql.*;
 
 public class Main {
@@ -27,6 +27,41 @@ public class Main {
                System.out.println("AGE:"+age);
                System.out.println("MARKS:"+marks);
            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+}
+
+Q2). CRUD operation using create statement.
+package org.example;
+import java.sql.*;
+
+public class Main {
+    private static final String url = "jdbc:mysql://localhost:3306/mydb";
+    private static final String username="root";
+    private static final String password= "9608";
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try{
+            Connection connection = DriverManager.getConnection(url,username,password);
+            Statement statement = connection.createStatement();
+//           String query =" select * from students";//select query
+//            String query = String.format("INSERT INTO students(name,age,marks) VALUES('%s', %d, %f)","Rahul",22,76.4); // Insert query
+//              String query = String .format("UPDATE students SET marks = %f WHERE id = %d",84.5,2); //update query
+            String query = "DELETE FROM students WHERE ID = 2"; // delete query
+           int rowsAffected= statement.executeUpdate(query);
+          if(rowsAffected > 0 ){
+              System.out.println("Deleted Successfully!");
+          } else{
+              System.out.println("Not Deleted!");
+          }
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
